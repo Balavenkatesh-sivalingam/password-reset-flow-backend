@@ -95,7 +95,7 @@ router.post("/passwordReset", async (req, res) => {
     user.resetPasswordExpires = Date.now() + 3600000;
     await user.save();
 
-    const resetlink = `http://localhost:3000/resetPassword/${token}`;
+    const resetlink = `https://passwords-reset-flow.netlify.app/resetPassword/${token}`;
     await sendMail(user.email, "Password Reset", `Reset your password: ${resetlink}`);
 
     res.status(200).json({

@@ -7,16 +7,23 @@ require("dotenv").config();
 
 const app = express();
 
+// Connect to MongoDB
 connectDB();
 
+// Middleware
 app.use(express.json());
+app.use(cors({ origin: "https://passwords-reset-flow.netlify.app" }));
 
-app.use(cors());
-
+// Routes
 app.use("/api/users", userRoutes);
 
-const PORT = process.env.PORT;
+// Optional root route
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
+// Start server
+const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => {
-  console.log("server is running");
+  console.log(`Server running on port ${PORT}`);
 });
